@@ -310,4 +310,179 @@ public struct Algorithm_Learn {
     func searchInsert(_ nums: [Int], _ target: Int) -> Int {
         return BasicAlgorithm.binarySearch(list: nums, target: target)
     }
+    
+    
+    func threeSumClosest(_ nums: [Int], _ target: Int) -> Int {
+        return 0
+    }
+    /**
+    61. 旋转链表
+    给你一个链表的头节点 head ，旋转链表，将链表每个节点向右移动 k 个位置。
+     
+     链表中节点的数目在范围 [0, 500] 内
+     -100 <= Node.val <= 100
+     0 <= k <= 2 * 109
+     */
+    func rotateRight(_ head: ListNode?, _ k: Int) -> ListNode? {
+        if head?.next == nil || k == 0 {
+            return head
+        }
+        var tempNode = head
+        var count = head == nil ? 0 : 1
+        while let next = tempNode?.next {
+            tempNode = next
+            count += 1
+        }
+        let rotateK = k % count
+        if rotateK == 0 {return head}
+        var tempTail = head
+        tempNode = head
+        var count2 = 0
+        while let next = tempNode?.next {
+            if count2 == rotateK {
+                tempTail = tempTail?.next
+            } else {
+                count2 += 1
+            }
+            tempNode = next
+        }
+        
+        let newHead = tempTail?.next
+        tempTail?.next = nil
+        
+        tempTail = newHead
+        while tempTail?.next != nil {
+            tempTail = tempTail?.next
+        }
+        tempTail?.next = head
+        return newHead
+    }
+    
+    /**
+     给你两个二进制字符串，返回它们的和（用二进制表示）。
+
+     输入为 非空 字符串且只包含数字 1 和 0。
+     */
+    func addBinary(_ a: String, _ b: String) -> String {
+        var result = ""
+        var temp = 0
+        var strA = a
+        var strB = b
+        while !strA.isEmpty || !strB.isEmpty {
+            let charA = Int(String(strA.popLast() ?? Character("0"))) ?? 0
+            let charB = Int(String(strB.popLast() ?? Character("0"))) ?? 0
+            let tempResult = charA + charB + temp
+            temp = 0
+            result.append("\(tempResult % 2)")
+            if tempResult > 1 {
+                temp = 1
+            }
+        }
+        if temp == 1 {result.append("\(temp)")}
+        return String(result.reversed())
+    }
+    
+    func reverse(_ x: Int) -> Int {
+        if x > -10 && x < 10 {return x}
+        var str = String(x)
+        var tempSimble = false
+        if str.first == "-" {
+            tempSimble = true
+            let _ = str.removeFirst()
+        }
+        var characters = Array(str)
+        var index = 0
+        var temp:Character!
+        while index < characters.count / 2 {
+            temp = characters[index]
+            characters[index] = characters[characters.count - 1 - index]
+            characters[characters.count - 1 - index] = temp
+            index += 1
+        }
+        while characters.first == Character("0") {
+            characters.removeFirst()
+        }
+        if tempSimble {
+            characters.insert(Character("-"), at: 0)
+        }
+        let result = Int(Int32(String(characters)) ?? 0)
+        return result
+    }
+    
+    func myAtoi(_ s: String) -> Int {
+        if s.isEmpty { return 0 }
+        let characters = Array(s)
+        var temp = Array<Character>()
+        var index = 0
+        var numStarted = false
+        var isNigative = false
+        while index < characters.count {
+            let char = characters[index]
+            if numStarted && Int(String(char)) == nil {
+                break
+            }
+            index += 1
+            if char == Character(" ") {continue}
+            if char == Character("-") || char == Character("+"){
+                numStarted = true
+                isNigative = char == Character("-")
+                continue
+            }
+            if Int(String(char)) != nil {
+                numStarted = true
+                temp.append(char)
+            } else {
+                break
+            }
+        }
+        while temp.first == Character("0") {
+            temp.removeFirst()
+        }
+        if temp.isEmpty { return 0 }
+        if isNigative { temp.insert(Character("-"), at: 0)}
+        let result = Int(Int32(String(temp)) ?? (isNigative ? -INT32_MAX - Int32(1) : INT32_MAX))
+        return result
+    }
+    
+    func removeOuterParentheses(_ s: String) -> String {
+        let chars = Array(s)
+        var result = ""
+        var index = s.count - 1
+        var state = 0
+        while index != 0 {
+            if chars[index] == Character(")") {
+                state += 1
+                if state == 1 {
+                    index -= 1
+                    continue
+                }
+            }
+            if chars[index] == Character("(") {
+                state -= 1
+                if state == 0 {
+                    index -= 1
+                    continue
+                }
+            }
+            result.append(chars[index])
+        }
+        var list = [1,2]
+        return result
+    }
+}
+
+class RecentCounter {
+
+    init() {
+
+    }
+    let queue = Queue()
+    func ping(_ t: Int) -> Int {
+        queue.input(t)
+
+        while queue.length > 1 && queue.headVal()! < t-3000 {
+            _ = queue.output()
+        }
+        return queue.length
+    }
 }

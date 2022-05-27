@@ -57,31 +57,54 @@ final class Algorithm_LearnTests: XCTestCase {
     }
     
     func testBubbleSort() throws {
-        var list = [1,3,4,5,12,2,4,5]
-        BasicAlgorithm.bubbleSort(list: &list)
-        print(list)
-        XCTAssert(true)
+        let cases = TestGenerator.testArrays(caseNum: 1000, maxValue: 1000, maxSize: 1000)
+        var arr2 = [Int]()
+        var testCaseNum = 0
+        for var testCase in cases {
+            testCaseNum += 1
+            Sort.bubbleSort(arr: &testCase)
+            arr2 = testCase.sorted()
+            for i in 0..<testCase.count {
+                XCTAssert(testCase[i] == arr2[i])
+            }
+            print("============= testCase \(testCaseNum) passed ==============")
+        }
     }
+    
+//    func testQuickSort() throws {
+//        var list = [1,3,4,5,12,2,4,5]
+//        Sort.quickSort(list: &list)
+//        print(list)
+//        XCTAssert(true)
+//    }
     
     func testSelectionSort() throws {
         var list = [1,3,4,5,12,2,4,5]
-        BasicAlgorithm.selectionSort(list: &list)
+        Sort.selectionSort(arr: &list)
         print(list)
         XCTAssert(true)
     }
     
     func testInsertSort() throws {
         var list = [1,3,4,5,12,2,4,5]
-        BasicAlgorithm.insertSort(list: &list)
+        Sort.insertSort(arr: &list)
         print(list)
         XCTAssert(true)
     }
     
     func testMergeSort() throws {
-        var list = [1,3,4,5,12,2,4,5]
-        BasicAlgorithm.mergeSort(list: &list)
-        print(list)
-        XCTAssert(true)
+        let cases = TestGenerator.testArrays(caseNum: 1000, maxValue: 1000, maxSize: 1000)
+        var arr2 = [Int]()
+        var testCaseNum = 0
+        for var testCase in cases {
+            testCaseNum += 1
+            Sort.mergeSort(arr: &testCase)
+            arr2 = testCase.sorted()
+            for i in 0..<testCase.count {
+                XCTAssert(testCase[i] == arr2[i])
+            }
+            print("============= testCase \(testCaseNum) passed ==============")
+        }
     }
     
     func testReverseListNode() throws {
@@ -93,6 +116,31 @@ final class Algorithm_LearnTests: XCTestCase {
             print(next.val)
             result = result?.next
         }
+        XCTAssert(true)
+    }
+    
+    func testThreeSumClosest() throws {
+        let arr = [1,1,1,0]
+        Algorithm_Learn().threeSumClosest(arr, -1000)
+        XCTAssert(true)
+    }
+    
+    func testFind() throws {
+        let arr = [1,1,2,2,3,3,4,4,5]
+        let _ = Find.findOddTimers(arr: arr)
+        XCTAssert(true)
+    }
+    
+    func testFind2() throws {
+        let arr = [1,1,2,2,3,3,4,4,5,3]
+        let result = Find.findOddTimersTwo(arr: arr)
+        print(result)
+        XCTAssert(true)
+    }
+    func testFindLowArea() throws {
+        let arr = [5, 4, 3, 6, 7, 9, 20]
+        let result = Find.findLowArea(arr: arr)
+        print(result)
         XCTAssert(true)
     }
 }
