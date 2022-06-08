@@ -86,6 +86,21 @@ final class Algorithm_LearnTests: XCTestCase {
         }
     }
     
+    func testHeapSort() throws {
+        let cases = TestGenerator.testArrays(caseNum: 1000, maxValue: 1000, maxSize: 1000)
+        var arr2 = [Int]()
+        var testCaseNum = 0
+        for var testCase in cases {
+            testCaseNum += 1
+            Sort.heapSort(arr: &testCase)
+            arr2 = testCase.sorted()
+            for i in 0..<testCase.count {
+                XCTAssert(testCase[i] == arr2[i])
+            }
+            print("============= testCase \(testCaseNum) passed ==============")
+        }
+    }
+    
     func testSelectionSort() throws {
         var list = [1,3,4,5,12,2,4,5]
         Sort.selectionSort(arr: &list)
@@ -163,6 +178,11 @@ final class Algorithm_LearnTests: XCTestCase {
         var arr = [1,3,4,2,5]
         Question.reversePair(arr: arr)
         print(Question.targetReversePair)
+        XCTAssert(true)
+    }
+    
+    func testTest() throws {
+        Question.sort()
         XCTAssert(true)
     }
 }
