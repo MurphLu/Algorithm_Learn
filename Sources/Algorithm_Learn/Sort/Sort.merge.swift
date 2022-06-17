@@ -33,7 +33,7 @@ extension Sort {
         var index2 = 0
         var result = [T]()
         while index1 < arr1.count && index2 < arr2.count {
-            if arr1[index1] < arr2[index2] {
+            if arr1[index1] <= arr2[index2] {
                 result.append(arr1[index1])
                 index1 += 1
                 continue

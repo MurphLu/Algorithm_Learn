@@ -72,12 +72,27 @@ final class Algorithm_LearnTests: XCTestCase {
     }
     
     func testQuickSort() throws {
-        let cases = TestGenerator.testArrays(caseNum: 1000, maxValue: 1000, maxSize: 1000)
+        let cases = TestGenerator.testArrays(caseNum: 1000, maxValue: 99, maxSize: 10000)
         var arr2 = [Int]()
         var testCaseNum = 0
         for var testCase in cases {
             testCaseNum += 1
             Sort.quickSort(arr: &testCase)
+            arr2 = testCase.sorted()
+            for i in 0..<testCase.count {
+                XCTAssert(testCase[i] == arr2[i])
+            }
+            print("============= testCase \(testCaseNum) passed ==============")
+        }
+    }
+    
+    func testBucketSort() throws {
+        let cases = TestGenerator.testArrays(caseNum: 1000, maxValue: 1000, maxSize: 1000)
+        var arr2 = [Int]()
+        var testCaseNum = 0
+        for var testCase in cases {
+            testCaseNum += 1
+            Sort.bubbleSort(arr: &testCase)
             arr2 = testCase.sorted()
             for i in 0..<testCase.count {
                 XCTAssert(testCase[i] == arr2[i])

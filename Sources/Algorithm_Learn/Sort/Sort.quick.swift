@@ -17,6 +17,10 @@ extension Sort {
     }
     
     private static func process<T: Comparable>(arr: inout Array<T>, left: Int, right: Int) {
+//        if(left - right < 60) {
+//            在arr[l..r] 插入排序
+//            O(N^2) 小样本量的时候跑的快
+//        }
         if left < right {
             arr.changeValue(index1: Int.random(in: left...right), index2: right)
             let partation = partation(arr: &arr, left: left, right: right)
