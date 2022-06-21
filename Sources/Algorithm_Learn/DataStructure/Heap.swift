@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+// 大根堆
 class Heap<T: Comparable> {
     private var list: [T]
     private var size: Int = 0

@@ -200,4 +200,86 @@ final class Algorithm_LearnTests: XCTestCase {
         Question.sort()
         XCTAssert(true)
     }
+    
+    func testLNode() throws {
+        let node = LNode(val: 1, next: LNode(val: 2, next: LNode(val: 3, next: LNode(val: 4, next: LNode(val: 5, next: nil)))))
+        node.reverse().desc()
+        XCTAssert(true)
+    }
+    
+    func testDuLNode() throws {
+        let node1 = DuLNode(val: 1, next: nil, last: nil)
+        let node2 = DuLNode(val: 2, next: nil, last: nil)
+        let node3 = DuLNode(val: 3, next: nil, last: nil)
+        node1.next = node2
+        node2.last = node1
+        node2.next = node3
+        node3.last = node2
+        node1.reverse().desc()
+        XCTAssert(true)
+    }
+    
+    func testIsPalindrome() throws {
+        let node = LNode(val: 1, next: LNode(val: 2, next: LNode(val: 3, next: LNode(val: 3, next: LNode(val: 2, next: LNode(val: 1, next: nil))))))
+        node.desc()
+        let result = Question.isPalindromeO1(listNode: node)
+        node.desc()
+        XCTAssert(result == true)
+    }
+    
+    func testCopyNodeWithRandom() throws {
+        let head = LNodeWithRandom(val:1, next: nil)
+        let node2 = LNodeWithRandom(val:2, next: nil)
+        let node3 = LNodeWithRandom(val:3, next: nil)
+        let node4 = LNodeWithRandom(val:4, next: nil)
+        let node5 = LNodeWithRandom(val:5, next: nil)
+        let node6 = LNodeWithRandom(val:6, next: nil)
+        let node7 = LNodeWithRandom(val:7, next: nil)
+        
+        head.next = node2
+        node2.next = node3
+        node3.next = node4
+        node4.next = node5
+        node5.next = node6
+        node6.next = node7
+        
+        head.random = node7
+        node2.random = nil
+        node3.random = node6
+        node4.random = node5
+        node5.random = node5
+        node6.random = node7
+        node7.random = head
+        
+        let result = Question.copyNodeListO1(listNode: head)
+        
+        
+        XCTAssert(true)
+    }
+    
+    
+    func testGetLoopNode() throws {
+        let head = LNode(val:1, next: nil)
+        let node2 = LNode(val:2, next: nil)
+        let node3 = LNode(val:3, next: nil)
+        let node4 = LNode(val:4, next: nil)
+        let node5 = LNode(val:5, next: nil)
+        let node6 = LNode(val:6, next: nil)
+        let node7 = LNode(val:7, next: nil)
+        head.next = node2
+        node2.next = node3
+        node3.next = node4
+        node4.next = node5
+        node5.next = node6
+        node6.next = node7
+        let head2 = LNode(val:11, next: nil)
+        let node12 = LNode(val:12, next: nil)
+        let node13 = LNode(val:13, next: nil)
+        head2.next = node12
+        node12.next = node13
+        node13.next = node7
+        let node = Question.getFirstShareNodeNoLoop(head1: head, head2: head2)
+        print(node?.val)
+        XCTAssert(true)
+    }
 }
