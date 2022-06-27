@@ -14,4 +14,17 @@ public class ListNode {
         self.val = val
         self.next = nil
     }
+    
+    func reverse() -> ListNode {
+        if self.next == nil { return self }
+        var head = self
+        var current = self.next
+        head.next = nil
+        while let temp = current {
+            current = temp.next
+            temp.next = head
+            head = temp
+        }
+        return head
+    }
 }

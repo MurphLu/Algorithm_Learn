@@ -56,16 +56,16 @@ extension Question {
         情况 1,3 区分，loop1 继续遍历，如果与 loop2 相遇，则为 3，否则为 1，
         如果为情况3，那么 loop1 与 loop2 都可以称作相交第一个节点
      */
-    public static func getSharedNodeEnter(head1: LNode<Int>, head2: LNode<Int>) -> LNode<Int> {
+    public static func getSharedNodeEnter(head1: LNode<Int>, head2: LNode<Int>) -> LNode<Int>? {
         let loop1 = getLoopNode(head: head1)
         let loop2 = getLoopNode(head: head2)
         
         if loop1 == nil && loop2 == nil {
             return getFirstShareNodeNoLoop(head1: head1, head2: head2)
         } else if loop1 != nil && loop2 != nil {
-            if loop1 == loop2 (
+            if loop1 == loop2 {
                 return getFirstShareNodeSameLoopNode(head1: head1, head2: head2)
-            ) else {
+            } else {
                 return getFirstShareNodeDiffLoopNode(head1: head1, head2: head2)
             }
         }

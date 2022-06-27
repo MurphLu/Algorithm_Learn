@@ -282,4 +282,54 @@ final class Algorithm_LearnTests: XCTestCase {
         print(node?.val)
         XCTAssert(true)
     }
+    
+    func test() throws {
+        let node1 = ListNode(1)
+        let node2 = ListNode(2)
+        let node3 = ListNode(3)
+        let node4 = ListNode(3)
+        let node5 = ListNode(5)
+        node1.next = node2
+//        node2.next = node3
+//        node3.next = node4
+//        node4.next = node5
+        let result = Algorithm_Learn().reverseBetween(node1, 1, 2)
+        XCTAssert(true)
+    }
+    
+    func testTree() throws{
+        let tree = TreeNode(val: 5)
+        let left = TreeNode(val: 1)
+        let right = TreeNode(val: 4)
+        let left01 = TreeNode(val: 4)
+        let right01 = TreeNode(val: 5)
+        
+        let left02 = TreeNode(val: 3)
+        let right02 = TreeNode(val: 6)
+        tree.left = left
+        tree.right = right
+//        left.left = left01
+//        left.right = right01
+        right.left = left02
+        right.right = right02
+        print("先序遍历--递归")
+        TreeBasic.preOrderRecur(tree: tree)
+        print("先序遍历--非递归")
+        TreeBasic.preOrderUnRecur(tree: tree)
+        print("中序遍历--递归")
+        TreeBasic.inOrderRecur(tree: tree)
+        print("中序遍历--非递归")
+        TreeBasic.inOrderUnRecur(tree: tree)
+        print("后序遍历")
+        TreeBasic.posOrderRecur(tree: tree)
+        print("后序遍历--非递归")
+        TreeBasic.posOrderUnRecur(tree: tree)
+        print("广度优先遍历")
+        TreeBasic.w(head: tree)
+        let maxWidth = Question.maxWidth(head: tree)
+        let isBst = Question.isBST(head: tree)
+        let isCBT = Question.isCBT(head: tree)
+        let result = Question.isBstProcess(head: tree)
+        XCTAssert(true)
+    }
 }

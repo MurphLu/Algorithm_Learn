@@ -466,8 +466,179 @@ public struct Algorithm_Learn {
             }
             result.append(chars[index])
         }
-        var list = [1,2]
         return result
+    }
+    
+    func oddEvenList(_ head: ListNode?) -> ListNode? {
+        guard let head = head, head.next?.next != nil else { return head }
+        let oddHead = head
+        var odd = oddHead
+        let evenHead = head.next
+        var even = evenHead
+        var cur = head.next?.next
+        odd.next = nil
+        even?.next = nil
+        while let odd_ = cur, let even_ = cur?.next {
+            odd.next = odd_
+            even?.next = even_
+            odd = odd_
+            even = even_
+            cur = even?.next
+            even?.next = nil
+        }
+        if cur != nil {
+            odd.next = cur
+            odd = cur!
+        }
+        odd.next = evenHead
+        return oddHead
+    }
+    
+    func reverseKGroup(_ head: ListNode?, _ k: Int) -> ListNode? {
+        if head?.next == nil { return head }
+        var result: ListNode?
+        var resultTail: ListNode?
+        
+        var remain: ListNode?
+        
+        var step = 0
+                
+        var groupCur = head
+        var groupCurHead = head
+
+        while groupCur != nil {
+            step += 1
+            if step == k {
+                step = 0
+                remain = groupCur?.next
+                groupCur?.next = nil
+                
+                if result == nil {
+                    result = groupCurHead?.reverse()
+                    resultTail = groupCurHead
+                } else {
+                    resultTail?.next = groupCurHead?.reverse()
+                    resultTail = groupCurHead
+                }
+                groupCurHead = remain
+                groupCur = remain
+            } else {
+                groupCur = groupCur?.next
+            }
+        }
+        if step > 0 { resultTail?.next = groupCurHead }
+        return result
+    }
+    
+    func deleteDuplicates(_ head: ListNode?) -> ListNode? {
+        
+        var result: ListNode?
+        var tempHead = head
+        var currVal: Int?
+        while tempHead != nil && tempHead?.val == tempHead?.next?.val {
+            currVal = tempHead?.val
+            while tempHead?.next?.val == currVal {
+                tempHead = tempHead?.next
+            }
+            tempHead = tempHead?.next
+        }
+        result = tempHead
+        var tail = tempHead
+        var cur = tempHead?.next
+        tempHead?.next = nil
+        
+        while let curent = cur {
+            if curent.val == curent.next?.val {
+                currVal = curent.val
+                while cur?.next?.val == currVal {
+                    cur = cur?.next
+                }
+                cur = cur?.next
+            } else {
+                tail?.next = curent
+                tail = curent
+                cur = curent.next
+                tail?.next = nil
+            }
+        }
+        return result
+    }
+    
+    func partition(_ head: ListNode?, _ x: Int) -> ListNode? {
+        if head?.next == nil { return head }
+        var result: ListNode?
+        var tail: ListNode?
+        
+        var maxHeader: ListNode?
+        var maxTail: ListNode?
+    
+        var cur = head
+        while let current = cur {
+            if current.val < x {
+                if result == nil {
+                    result = current
+                } else {
+                    tail?.next = current
+                }
+                tail = current
+            } else {
+                if maxHeader == nil {
+                    maxHeader = current
+                } else {
+                    maxTail?.next = current
+                }
+                maxTail = current
+            }
+            cur = current.next
+            current.next = nil
+        }
+        tail?.next = maxHeader
+        return result ?? maxHeader
+    }
+    
+    func reverseBetween(_ head: ListNode?, _ left: Int, _ right: Int) -> ListNode? {
+        guard let head = head, head.next != nil, left != right else { return head }
+        var curIndex = 1
+        let begin: ListNode? = left != curIndex ? head : nil
+        var beginTail: ListNode? = begin
+        
+        var center: ListNode? = left == curIndex ? head : nil
+        var centerTail: ListNode? = center
+        
+        var end: ListNode?
+        
+        var cur = head.next
+        
+        while let current = cur {
+            curIndex += 1
+            if curIndex < left {
+                beginTail?.next = current
+                beginTail = current
+            } else if curIndex == left {
+                center = current
+                centerTail = current
+                beginTail?.next = nil
+            } else if curIndex > left && curIndex < right {
+                centerTail?.next = current
+                centerTail = current
+            } else if curIndex == right {
+                centerTail?.next = current
+                centerTail = current
+                end = centerTail?.next
+                centerTail?.next = nil
+            }
+            cur = current.next
+        }
+        let newCenterTail = center
+        let newCenter = center?.reverse()
+        if begin == nil {
+            newCenterTail?.next = end
+            return newCenter
+        } else {
+            beginTail?.next = newCenter
+            newCenterTail?.next = end
+            return begin
+        }
     }
 }
 
@@ -476,7 +647,7 @@ class RecentCounter {
     init() {
 
     }
-    let queue = Queue()
+    let queue = Queue<Int>()
     func ping(_ t: Int) -> Int {
         queue.input(t)
 

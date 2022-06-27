@@ -7,16 +7,21 @@
 
 import Foundation
 
-class Queue {
+class Queue<T> {
+    private class ListNode {
+        init(_ val: T){
+            self.val = val
+        }
+        var val: T
+        var next: ListNode?
+    }
     private(set) var length: Int = 0
     private var head: ListNode?
     private var tail: ListNode?
     
-    init() {
-        
-    }
+    init() {}
     
-    func input(_ val: Int) {
+    func input(_ val: T) {
         let node = ListNode(val)
         if head == nil {
             head = node
@@ -27,23 +32,25 @@ class Queue {
         length += 1
     }
     
-    func output() -> Int? {
-        let temp = head
-        if head != nil {
-            head = temp?.next
-            length -= 1
-        }
-        if head == nil {
-            tail = nil
-        }
-        return temp?.val
+    func output() -> T? {
+        guard let head_ = head else { return nil }
+        let val = head_.val
+        head = head_.next
+        length -= 1
+        if head == nil { tail = nil }
+        return val
     }
     
-    func headVal() -> Int? {
+    func headVal() -> T? {
         return head?.val
     }
     
-    func tailVal() -> Int? {
+    func tailVal() -> T? {
         return tail?.val
+    }
+    
+    
+    func isEmpty() -> Bool {
+        return length == 0
     }
 }
