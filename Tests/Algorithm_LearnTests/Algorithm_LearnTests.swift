@@ -332,4 +332,167 @@ final class Algorithm_LearnTests: XCTestCase {
         let result = Question.isBstProcess(head: tree)
         XCTAssert(true)
     }
+    
+    func testTreeNodeBuild() throws {
+        let preorder = [8,5,1,7,10,12]
+        var index = 0
+        let head = TreeNode(val: preorder[index])
+        var arr = [TreeNode]()
+        arr.append(head)
+        index += 1
+        while let node = arr.popLast(), index < preorder.count {
+            if node.val > preorder[index] {
+                let newNode = TreeNode(val: preorder[index])
+                node.left = newNode
+                arr.append(node)
+                arr.append(newNode)
+                index += 1
+            } else {
+
+                if arr.isEmpty || arr.last!.val > preorder[index] {
+                    let newNode = TreeNode(val: preorder[index])
+                    node.right = newNode
+                    arr.append(newNode)
+                    index += 1
+                }
+            }
+        }
+        
+        XCTAssert(true)
+    }
+    
+    func testSerDser() throws {
+        let str = "[1,2,3,null,null,4,5,6,7]"
+        let node = Question.deserialize(str)
+        XCTAssert(true)
+    }
+    
+    func testMinString() throws {
+        let tree = Question.deserialize("[0,1,2,3,4,3,4]")
+        let result = Question.smallestFromLeaf(tree)
+        XCTAssert(true)
+    }
+    func testPrintCurse() throws {
+        Question.printCrease(curLevel: 1, level: 3, down: true)
+        XCTAssert(true)
+    }
+    
+    func testFrogPosition() throws {
+        let result = Question.frogProsition(n: 7, edges: [[1,2],[1,3],[1,7],[2,4],[2,6],[3,5]], t: 1, target: 7)
+        print(result)
+        XCTAssert(true)
+    }
+    func testFindJudge() throws {
+        let reuslt = Question.findJudge(3, [[1,3],[2,3],[3,1]])
+        print(reuslt)
+        XCTAssert(true)
+    }
+    
+    func testCheapestPath() throws {
+        XCTAssert(true)
+    }
+    
+    func testMinHightTree() throws {
+
+        XCTAssert(true)
+        
+    }
+    
+    func testMinPath() throws {
+        XCTAssert(true)
+    }
+
+    func testPriorityQueue() throws {
+        let queue = PriorityQueue<Int>(list: [Int]()) { o1, o2 in
+            o1 > o2
+        }
+        queue.push(1)
+        queue.push(3)
+        queue.push(2)
+        print(queue.pop()!)
+        print(queue.pop()!)
+        print(queue.pop()!)
+        XCTAssert(true)
+    }
+    
+    func testKrusalMST() throws {
+        let matrix: [MatrixTuple] = [
+            (from: 1, to: 2, weight: 3),
+            (from: 1, to: 3, weight: 100),
+            (from: 1, to: 4, weight: 7),
+            (from: 2, to: 3, weight: 5),
+            (from: 2, to: 4, weight: 2),
+            (from: 3, to: 4, weight: 10000)
+        ]
+        
+        let graph = GraphBase.createGraph(matrixes: matrix, directed: false)
+        let edges = Algorithm.krusalMST(graph: graph)
+        for edge in edges {
+            print(edge.weight)
+        }
+        XCTAssert(true)
+    }
+    
+    func testPrimMST() throws {
+        let matrix: [MatrixTuple] = [
+            (from: 1, to: 2, weight: 3),
+            (from: 1, to: 3, weight: 100),
+            (from: 1, to: 4, weight: 7),
+            (from: 2, to: 3, weight: 5),
+            (from: 2, to: 4, weight: 2),
+            (from: 3, to: 4, weight: 10000)
+        ]
+        
+        let graph = GraphBase.createGraph(matrixes: matrix, directed: false)
+        let edges = Algorithm.primMST(graph: graph)
+        for edge in edges {
+            print(edge.weight)
+        }
+        XCTAssert(true)
+    }
+    
+    func testDIJkstra() throws {
+        let matrix: [MatrixTuple] = [
+            (from: 1, to: 2, weight: 3),
+            (from: 1, to: 3, weight: 100),
+            (from: 1, to: 4, weight: 7),
+            (from: 2, to: 3, weight: 5),
+            (from: 2, to: 4, weight: 2),
+            (from: 3, to: 4, weight: 10000)
+        ]
+        
+        let graph = GraphBase.createGraph(matrixes: matrix, directed: false)
+        
+        let result = Algorithm.DIJkstra(head: graph.nodes[1]!)
+        print(result)
+        XCTAssert(true)
+    }
+    
+    func testTrie() {
+        let tire = Tire()
+        
+        tire.insert(word: "abc")
+        tire.insert(word: "acd")
+        tire.insert(word: "c")
+        tire.insert(word: "")
+        tire.insert(word: "cds")
+        XCTAssert(tire.checkPrefix(word: "c"))
+        XCTAssert(!tire.checkPrefix(word: "ab"))
+        XCTAssert(tire.checkPrefix(word: "abc"))
+        XCTAssert(tire.checkPrefix(word: "abcd"))
+        
+        XCTAssert(true)
+    }
+    
+    func testMaxSumRangeQuery() throws {
+        
+        XCTAssert(true)
+    }
+    
+    func testDeleteDumpChar() throws {
+        let s = "cbacdcbc"
+        let result = Algorithm().removeDuplicateLetters(s)
+        print(result)
+        XCTAssert(true)
+    }
 }
